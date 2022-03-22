@@ -28,3 +28,4 @@ type RestaurantCreate struct {
 func (RestaurantCreate) TableName() string {
 	return Restaurant{}.TableName()
 }
+

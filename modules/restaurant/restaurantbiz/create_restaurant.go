@@ -3,7 +3,6 @@ package restaurantbiz
 import (
 	"200lab/modules/restaurant/restaurantmodel"
 	"context"
-	"errors"
 )
 
 type CreateRestaurantStore interface {
@@ -19,11 +18,10 @@ func NewCreateRestaurantBiz(store CreateRestaurantStore) *createRestaurantBiz {
 }
 
 func (biz *createRestaurantBiz) CrateRestaurant(ctx context.Context, data *restaurantmodel.RestaurantCreate) error {
-	if data.Name == "" {
-		return errors.New("restaurant name can not be blank")
+	if err := data.Validate(); err != nil {
+		return err
 	}
 
 	err := biz.store.Create(ctx, data)
-
 	return err
 }
