@@ -25,7 +25,7 @@ func CreateRestaurant(appCtx components.AppContext) gin.HandlerFunc {
 
 		store := restaurantstorage.NewSqlStore(appCtx.GetMainDBConnection())
 		biz := restaurantbiz.NewCreateRestaurantBiz(store)
-		if err := biz.CrateRestaurant(c.Request.Context(), &data); err != nil {
+		if err := biz.CreateRestaurant(c.Request.Context(), &data); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{
 				"error": err.Error(),
 			})

@@ -17,7 +17,7 @@ func NewCreateRestaurantBiz(store CreateRestaurantStore) *createRestaurantBiz {
 	return &createRestaurantBiz{store: store}
 }
 
-func (biz *createRestaurantBiz) CrateRestaurant(ctx context.Context, data *restaurantmodel.RestaurantCreate) error {
+func (biz *createRestaurantBiz) CreateRestaurant(ctx context.Context, data *restaurantmodel.RestaurantCreate) error {
 	if err := data.Validate(); err != nil {
 		return err
 	}

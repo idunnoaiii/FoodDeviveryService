@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"200lab/components"
+	"200lab/middleware"
 	"200lab/modules/restaurant/restauranttransport/ginrestaurant"
 
 	"github.com/joho/godotenv"
@@ -26,14 +27,17 @@ func main() {
 		log.Fatalln("Error open database", err)
 	}
 
+	appCtx := components.NewAppContext(db)
+
 	r := gin.Default() 
+
+	r.Use(middleware.Recorver(appCtx))
+
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",
 		})
 	})
-
-	appCtx := components.NewAppContext(db)
 
 	restaurants := r.Group("/restaurants")
 	{
