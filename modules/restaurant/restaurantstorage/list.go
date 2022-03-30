@@ -22,7 +22,7 @@ func (s *sqlStore) ListDataByCondition(
 		db = db.Preload(moreKeys[i])
 	}
 
-	db = db.Table(restaurantmodel.Restaurant{}.TableName()).Where(conditions)
+	db = db.Table(restaurantmodel.Restaurant{}.TableName()).Where(conditions).Where("status in (1)")
 
 	if v := filter; v != nil {
 		if v.CityId > 0 {
@@ -31,7 +31,7 @@ func (s *sqlStore) ListDataByCondition(
 	}
 
 	if err := db.Count(&paging.Total).Error; err != nil {
-		return nil, err
+		return nil, common.ErrDB(err)
 	}
 
 	if err := db. 

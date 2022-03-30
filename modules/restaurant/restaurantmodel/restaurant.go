@@ -1,9 +1,13 @@
 package restaurantmodel
 
+import "200lab/common"
+
+const EntityName = "Restaurant"
+
 type Restaurant struct {
-	Id   int    `json:"id,omitempty" gorm:"column:id;"`
-	Name string `json:"name,omitempty" gorm:"column:name;"`
-	Addr string `json:"address,omitempty" gorm:"column:addr;"`
+	common.SQLModel `json:",inline"`
+	Name            string `json:"name,omitempty" gorm:"column:name;"`
+	Addr            string `json:"address,omitempty" gorm:"column:addr;"`
 }
 
 func (Restaurant) TableName() string {
@@ -28,4 +32,3 @@ type RestaurantCreate struct {
 func (RestaurantCreate) TableName() string {
 	return Restaurant{}.TableName()
 }
-
