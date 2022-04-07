@@ -9,13 +9,12 @@ import (
 func (s *sqlStore) ListDataByCondition(
 	ctx context.Context,
 	conditions map[string]interface{},
-	filter *restaurantmodel.Filter, 
+	filter *restaurantmodel.Filter,
 	paging *common.Paging,
 	moreKeys ...string,
 ) ([]restaurantmodel.Restaurant, error) {
 
 	var result []restaurantmodel.Restaurant
-
 	db := s.db
 
 	for i := range moreKeys {
@@ -34,7 +33,7 @@ func (s *sqlStore) ListDataByCondition(
 		return nil, common.ErrDB(err)
 	}
 
-	if err := db. 
+	if err := db.
 		Offset((paging.Page - 1) * paging.Limit).
 		Limit(paging.Limit).
 		Order("id desc").
