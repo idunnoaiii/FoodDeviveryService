@@ -15,12 +15,12 @@ func Recorver(appCtx components.AppContext) gin.HandlerFunc {
 
 				if appErr, ok := err.(*common.AppError); ok {
 					c.AbortWithStatusJSON(appErr.StatusCode, appErr)
-					return
+					panic(err)
 				}
 
 				appErr := common.ErrInternal(err.(error))
 				c.AbortWithStatusJSON(appErr.StatusCode, appErr)
-				return
+				panic(err)
 			}
 		}()
 
